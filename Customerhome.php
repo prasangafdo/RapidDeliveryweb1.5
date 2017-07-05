@@ -165,6 +165,36 @@ Additionally, other than giving features to the employees, Rapid Delivery has be
              <input type="submit">
              </form>
              
+              <?php
+			 
+			  //include('customerSession.php');
+			  require 'connect.php';
+			 $sql = "SELECT id from customer where username = '$login_session'";
+//0 is for no parcels
+if (mysqli_query($con, $sql)) {
+    
+$results = mysqli_query($con, $sql) or die(mysql_error());
+echo "<table border=\"2\">";
+$x=1;
+echo "<tr>";
+while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+if ($x <= 1)
+{
+$x = $x + 1;
+extract($row);
+echo '<br/>';
+echo $id .'<br/>';
+
+}
+$x=0;
+echo "</tr><tr>";
+
+}
+echo "</table>";
+
+}
+?>
+             
         <!--       
        <div class="map-Border">
         <div id="map"></div>
