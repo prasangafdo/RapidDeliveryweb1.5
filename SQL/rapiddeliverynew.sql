@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2017 at 10:26 PM
+-- Generation Time: Jul 07, 2017 at 09:22 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -123,15 +123,27 @@ INSERT INTO `employee_data` (`id`, `name`, `surname`, `age`, `username`, `passwo
 --
 
 CREATE TABLE `location` (
+  `parcel_ID` int(11) NOT NULL,
+  `Longitude` text NOT NULL,
+  `Latitude` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `locationold`
+--
+
+CREATE TABLE `locationold` (
   `Latitude` text COLLATE utf8_unicode_ci NOT NULL,
   `Longitude` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `location`
+-- Dumping data for table `locationold`
 --
 
-INSERT INTO `location` (`Latitude`, `Longitude`) VALUES
+INSERT INTO `locationold` (`Latitude`, `Longitude`) VALUES
 ('aaaa', 'bbbb'),
 ('lati', 'long'),
 ('', ''),
@@ -197,10 +209,10 @@ INSERT INTO `parcel` (`id`, `customer_id`, `pickup_address`, `delivery_address`,
 (1, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
 (2, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
 (3, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(4, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(5, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(6, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(7, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
+(4, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
+(5, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
+(6, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
+(7, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
 (8, 11, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
 (9, 8, 'Katunayake', 'asd', 'dfasd', '1234', '3123', 'Nothing special');
 
@@ -215,7 +227,9 @@ CREATE TABLE `parcel_status` (
   `courier_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `delivered` bit(1) NOT NULL,
-  `picked_up` bit(1) NOT NULL
+  `picked_up` bit(1) NOT NULL,
+  `Vehicle_ID` int(11) NOT NULL,
+  `parcel_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -229,6 +243,17 @@ CREATE TABLE `staff` (
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle`
+--
+
+CREATE TABLE `vehicle` (
+  `vehicle_ID` int(11) NOT NULL,
+  `Parcel_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -283,6 +308,12 @@ ALTER TABLE `parcel_status`
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username_UNIQUE` (`username`);
+
+--
+-- Indexes for table `vehicle`
+--
+ALTER TABLE `vehicle`
+  ADD PRIMARY KEY (`vehicle_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables

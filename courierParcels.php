@@ -43,8 +43,7 @@ echo $package_type .'<br/>';
 echo "<td style=\"padding-right:15px;\">";
 echo $contact_no .'<br/>';
 echo "<td style=\"padding-right:15px;\">";
-echo $state_address .'<br/>';
-echo "<td style=\"padding-right:15px;\">";
+echo $state_address .'<br/>';;
 echo "</td>";
 }
 $x=0;
@@ -57,7 +56,14 @@ echo "</table>";
 ?>
 <html>
 <body>
-<input type="text">
-<input type="submit">
+<form action="courierParcelsSingle.php" method="post">
+<input type="text" name="parcel_ID" id="parcel_ID" placeholder="Enter parcel ID">
+<input type="submit" Value="Select this parcel">
+</form>
+
+<form action="pickupParcel.php">
+<input type="submit" Value="Select all parcels">
+</form>
+
 </body>
 </html>
