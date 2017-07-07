@@ -161,7 +161,7 @@ Additionally, other than giving features to the employees, Rapid Delivery has be
                      </div>
              </div>
              <form action="CustomerParcels.php" method="post">
-             <input type="text" name="name" placeholder="Customer ID">
+             <input type="text" name="name" placeholder="Parcel ID">
              <input type="submit">
              </form>
              
@@ -222,7 +222,6 @@ echo "<td style=\"padding-right:15px;\">";
 echo $contact_no .'<br/>';
 echo "<td style=\"padding-right:15px;\">";
 echo $state_address .'<br/>';
-echo "<td style=\"padding-right:15px;\">";
 echo "</td>";
 }
 $x=0;

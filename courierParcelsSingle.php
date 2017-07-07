@@ -14,7 +14,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		
 		$UID = $row["id"];
-        echo  $UID ;
+        echo  "Courier_ID " .$UID ;
       
 }
 
@@ -27,15 +27,50 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
 		
-		$PID = $row["customer_id"];
+		$CID = $row["customer_id"];
 		echo  "<br/>";
-        echo  $PID ;
-      
+        echo  "Customer_ID " .$CID ;
+     }
 }
 
+$sql3 = "SELECT `vehicle_ID` FROM `courier` WHERE `username` = '$login_session'";//Getting vehicle ID
+$result = $con->query($sql3);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+		
+		$VID = $row["vehicle_ID"];
+		echo  "<br/>";
+        echo  "Vehicle_ID " .$VID ;   
+	}
+}
+echo  "<br/>";
+echo 'Parcel_ID '.$PID;
+echo  "<br/>";
+
+
+$sql = "INSERT INTO parcel_status (courier_ID, customer_ID, Delivered, Picked_up, vehicle_ID, parcel_ID) 
+VALUES ('$UID', '$CID', '0','1', '$VID', '$PID')";
+//Inserting data to Parcel_Status table
+
+if (mysqli_query($con, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($con);
 }
 
+$sql = "delete from parcel where id = $PID";
+//Deleting data from parcel
+
+if (mysqli_query($con, $sql)) {
+    echo "Value deleted successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($con);
+}    
 ?>
+
+
 <html>
 <body>
 
