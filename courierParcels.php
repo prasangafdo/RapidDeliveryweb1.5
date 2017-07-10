@@ -16,8 +16,8 @@ if ($result->num_rows > 0) {
       */  //
 //}
 //}
-$sql = "SELECT ID, pickup_address, delivery_address, package_type, contact_no, state_address FROM
-parcel where pickup_address like '$addr'";
+$sql = "SELECT parcel_ID, pickup_address, delivery_address, package_type, contact_no FROM
+parcel_reports where pickup_address like '$addr'";
 //0 is for no parcels
 if (mysqli_query($con, $sql)) {
     
@@ -31,7 +31,7 @@ if ($x <= 1)
 $x = $x + 1;
 extract($row);
 echo "<td style=\"padding-right:35px;\">";
-echo $ID .'<br/>';
+echo $parcel_ID .'<br/>';
 echo "<td style=\"padding-right:15px;\">";
 echo $pickup_address .'<br/>';
 echo "</td>";
@@ -42,8 +42,6 @@ echo "<td style=\"padding-right:15px;\">";
 echo $package_type .'<br/>';
 echo "<td style=\"padding-right:15px;\">";
 echo $contact_no .'<br/>';
-echo "<td style=\"padding-right:15px;\">";
-echo $state_address .'<br/>';;
 echo "</td>";
 }
 $x=0;
