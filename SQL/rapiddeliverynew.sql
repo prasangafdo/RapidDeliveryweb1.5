@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2017 at 09:22 AM
+-- Generation Time: Jul 11, 2017 at 01:01 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -54,16 +54,17 @@ CREATE TABLE `courier` (
   `password` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parcel_ID` int(11) NOT NULL,
   `address` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `telephone` int(11) NOT NULL
+  `telephone` int(11) NOT NULL,
+  `vehicle_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `courier`
 --
 
-INSERT INTO `courier` (`id`, `username`, `password`, `parcel_ID`, `address`, `telephone`) VALUES
-(1, 'prasangacourier', '1111', 2, '', 0),
-(3, 'Prasangaasd', 'pss', 0, 'Katunayake', 776655423);
+INSERT INTO `courier` (`id`, `username`, `password`, `parcel_ID`, `address`, `telephone`, `vehicle_ID`) VALUES
+(1, 'prasangacourier', '1111', 2, '', 0, 2),
+(3, 'PrasangaCour', 'pss', 0, 'Katunayake', 776655423, 1);
 
 -- --------------------------------------------------------
 
@@ -125,8 +126,17 @@ INSERT INTO `employee_data` (`id`, `name`, `surname`, `age`, `username`, `passwo
 CREATE TABLE `location` (
   `parcel_ID` int(11) NOT NULL,
   `Longitude` text NOT NULL,
-  `Latitude` text NOT NULL
+  `Latitude` text NOT NULL,
+  `parcel_status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`parcel_ID`, `Longitude`, `Latitude`, `parcel_status`) VALUES
+(0, '79.9043215', '7.1824795', 'pickedup'),
+(2, '79.878045', '6.972629', 'pickedup');
 
 -- --------------------------------------------------------
 
@@ -209,12 +219,37 @@ INSERT INTO `parcel` (`id`, `customer_id`, `pickup_address`, `delivery_address`,
 (1, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
 (2, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
 (3, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(4, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(5, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(6, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(7, 8, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(8, 11, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(9, 8, 'Katunayake', 'asd', 'dfasd', '1234', '3123', 'Nothing special');
+(10, 4, '234', '234', '234', '54', '324', '12312'),
+(11, 4, '234', '234', '234', '54', '324', '12312');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parcel_reports`
+--
+
+CREATE TABLE `parcel_reports` (
+  `id` int(11) NOT NULL,
+  `customer_ID` int(11) NOT NULL,
+  `pickup_address` varchar(50) NOT NULL,
+  `delivery_address` varchar(60) NOT NULL,
+  `package_type` varchar(20) NOT NULL,
+  `contact_no` int(11) NOT NULL,
+  `state_address` varchar(60) NOT NULL,
+  `note` varchar(90) NOT NULL,
+  `parcel_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `parcel_reports`
+--
+
+INSERT INTO `parcel_reports` (`id`, `customer_ID`, `pickup_address`, `delivery_address`, `package_type`, `contact_no`, `state_address`, `note`, `parcel_ID`) VALUES
+(1, 8, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 0),
+(2, 11, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 0),
+(3, 8, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 0),
+(4, 11, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 2),
+(5, 8, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 5);
 
 -- --------------------------------------------------------
 
@@ -226,11 +261,19 @@ CREATE TABLE `parcel_status` (
   `id` int(11) NOT NULL,
   `courier_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `delivered` bit(1) NOT NULL,
-  `picked_up` bit(1) NOT NULL,
+  `status` varchar(10) NOT NULL,
   `Vehicle_ID` int(11) NOT NULL,
   `parcel_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `parcel_status`
+--
+
+INSERT INTO `parcel_status` (`id`, `courier_id`, `customer_id`, `status`, `Vehicle_ID`, `parcel_ID`) VALUES
+(4, 1, 11, 'Pickedup', 2, 2),
+(5, 1, 8, 'Pickedup', 2, 6),
+(6, 1, 8, 'Pickedup', 2, 5);
 
 -- --------------------------------------------------------
 
@@ -285,6 +328,12 @@ ALTER TABLE `employee_data`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+  ADD PRIMARY KEY (`parcel_ID`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -294,6 +343,12 @@ ALTER TABLE `login`
 -- Indexes for table `parcel`
 --
 ALTER TABLE `parcel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `parcel_reports`
+--
+ALTER TABLE `parcel_reports`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -348,12 +403,17 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `parcel`
 --
 ALTER TABLE `parcel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `parcel_reports`
+--
+ALTER TABLE `parcel_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `parcel_status`
 --
 ALTER TABLE `parcel_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `staff`
 --

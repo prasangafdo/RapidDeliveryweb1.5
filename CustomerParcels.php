@@ -17,40 +17,46 @@
     </style>
     <link href="css/scrolling-nav.css" rel="stylesheet">
 <body>
+
 <?php
 require 'connect.php';
 $parcel_ID = $_POST['parcel_ID'];
 
-/*
-$sql = "SELECT Longitude, Latitude FROM
-location where parcel_ID = '$parcel_ID'";
-if (mysqli_query($con, $sql)) {
+/////////////
+$sql1 = "SELECT status FROM
+parcel_status where parcel_ID = '$parcel_ID'";
+
+if (mysqli_query($con, $sql1)) {
     
-$results = mysqli_query($con, $sql) or die(mysql_error());
-echo "<table border=\"2\">";
+$results = mysqli_query($con, $sql1) or die(mysql_error());
 $x=1;
-echo "<tr>";
+
 while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
-if ($x <= 1)
-{
-$x = $x + 1;
+
 extract($row);
-echo "<td style=\"padding-right:35px;\">";
-echo $Longitude .'<br/>';
-echo "<td style=\"padding-right:15px;\">";
-echo $Latitude .'<br/>';
-echo "</td>";
-}
-$x=0;
-echo "</tr><tr>";
 
-}
-echo "</table>";*/
+if($status = 'Pickedup'){
 
+$sql2 = "SELECT Vehicle_ID FROM
+parcel_status where parcel_ID = '$parcel_ID'";
+
+if (mysqli_query($con, $sql2)) {
+    
+$results = mysqli_query($con, $sql2) or die(mysql_error());
+$x=1;
+
+while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+
+extract($row);
+
+$Vehicle_ID ;
+
+//////////
+/////////
 
 $sql = "SELECT Longitude, Latitude FROM
-location where parcel_ID = '$parcel_ID'";
-//0 is for no parcels
+location where vehicle_ID = '$Vehicle_ID'";
+
 if (mysqli_query($con, $sql)) {
     
 $results = mysqli_query($con, $sql) or die(mysql_error());
@@ -74,6 +80,19 @@ $x=0;
 
 
 }
+/////////
+
+}
+$x=0;
+
+}//End of the sql
+}
+}
+$x=0;
+
+}
+
+
 ?>
 
 
