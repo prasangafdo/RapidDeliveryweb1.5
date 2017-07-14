@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2017 at 01:01 AM
+-- Generation Time: Jul 14, 2017 at 07:58 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -52,7 +52,6 @@ CREATE TABLE `courier` (
   `id` int(11) NOT NULL,
   `username` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `parcel_ID` int(11) NOT NULL,
   `address` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `telephone` int(11) NOT NULL,
   `vehicle_ID` int(11) NOT NULL
@@ -62,9 +61,9 @@ CREATE TABLE `courier` (
 -- Dumping data for table `courier`
 --
 
-INSERT INTO `courier` (`id`, `username`, `password`, `parcel_ID`, `address`, `telephone`, `vehicle_ID`) VALUES
-(1, 'prasangacourier', '1111', 2, '', 0, 2),
-(3, 'PrasangaCour', 'pss', 0, 'Katunayake', 776655423, 1);
+INSERT INTO `courier` (`id`, `username`, `password`, `address`, `telephone`, `vehicle_ID`) VALUES
+(3, 'PrasangaCour', 'pss', 'Katunayake', 776655423, 1),
+(4, 'Prasanga_cur', 'courier', '56 Temple Road Negombo', 776655422, 4);
 
 -- --------------------------------------------------------
 
@@ -86,36 +85,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `username`, `password`, `email`, `address`, `tel`) VALUES
-(1, 'Customer', '1111', 'customer@gmail.com', 'customer address', '11223344'),
-(8, 'Prasanga', 'aaaa', 'prasangafdz@gmail.com', 'addr1', '0776655423'),
-(11, 'uname', 'pss', 'email', 'address', 'telephone'),
-(13, 'Prasangacus', '12321312', 'asda', 'Katunayake', '0776655422');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee_data`
---
-
-CREATE TABLE `employee_data` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `surname` text NOT NULL,
-  `age` text NOT NULL,
-  `username` text NOT NULL,
-  `password` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `employee_data`
---
-
-INSERT INTO `employee_data` (`id`, `name`, `surname`, `age`, `username`, `password`) VALUES
-(12, 'Prasanga', 'Fernando', '21', 'usr', 'pss'),
-(14, 'Prasanga', 'Fernando', '21', 'prasangafdo', '12345678'),
-(15, 'Prasanga', 'Fernando', '18', 'prasangafdo', '1234@7'),
-(16, 'Prasanga', 'Fernando', '18', 'prasangafdo', '1234@7'),
-(17, 'prasanga', 'Fernando', '19', 'fdo', 'passwordtst');
+(1, 'Prasanga_cus', 'customer', 'prasangafdz@gmail.com', '102 Andiambalama', '0766492254');
 
 -- --------------------------------------------------------
 
@@ -124,7 +94,7 @@ INSERT INTO `employee_data` (`id`, `name`, `surname`, `age`, `username`, `passwo
 --
 
 CREATE TABLE `location` (
-  `parcel_ID` int(11) NOT NULL,
+  `vehicle_ID` int(11) NOT NULL,
   `Longitude` text NOT NULL,
   `Latitude` text NOT NULL,
   `parcel_status` varchar(10) NOT NULL
@@ -134,65 +104,8 @@ CREATE TABLE `location` (
 -- Dumping data for table `location`
 --
 
-INSERT INTO `location` (`parcel_ID`, `Longitude`, `Latitude`, `parcel_status`) VALUES
-(0, '79.9043215', '7.1824795', 'pickedup'),
-(2, '79.878045', '6.972629', 'pickedup');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `locationold`
---
-
-CREATE TABLE `locationold` (
-  `Latitude` text COLLATE utf8_unicode_ci NOT NULL,
-  `Longitude` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
-
---
--- Dumping data for table `locationold`
---
-
-INSERT INTO `locationold` (`Latitude`, `Longitude`) VALUES
-('aaaa', 'bbbb'),
-('lati', 'long'),
-('', ''),
-('', ''),
-('2435', '8535'),
-('gih', 'jhj'),
-('lat', 'long'),
-('468866', '111111'),
-('555', '777'),
-('', ''),
-('', ''),
-('7.182505', '79.90427333333334'),
-('7.182513333333333', '79.90434666666667'),
-('7.182474', '79.9043079'),
-('7.1824897', '79.9043133'),
-('7.1824897', '79.9043133'),
-('', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login`
---
-
-CREATE TABLE `login` (
-  `id` int(10) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `login`
---
-
-INSERT INTO `login` (`id`, `username`, `password`) VALUES
-(1, 'prasanga', '1111'),
-(2, 'newUser', 'password'),
-(3, 'newUser', 'password'),
-(4, 'newUser', 'password');
+INSERT INTO `location` (`vehicle_ID`, `Longitude`, `Latitude`, `parcel_status`) VALUES
+(4, '79.9043161\r\n', '7.1824794', 'pickedup');
 
 -- --------------------------------------------------------
 
@@ -211,17 +124,6 @@ CREATE TABLE `parcel` (
   `note` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `parcel`
---
-
-INSERT INTO `parcel` (`id`, `customer_id`, `pickup_address`, `delivery_address`, `package_type`, `contact_no`, `state_address`, `note`) VALUES
-(1, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(2, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(3, 123, 'ad', 'asd', 'dfasd', '1234', '3123', '43we'),
-(10, 4, '234', '234', '234', '54', '324', '12312'),
-(11, 4, '234', '234', '234', '54', '324', '12312');
-
 -- --------------------------------------------------------
 
 --
@@ -237,19 +139,20 @@ CREATE TABLE `parcel_reports` (
   `contact_no` int(11) NOT NULL,
   `state_address` varchar(60) NOT NULL,
   `note` varchar(90) NOT NULL,
-  `parcel_ID` int(11) NOT NULL
+  `parcel_ID` int(11) NOT NULL,
+  `courier_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `parcel_reports`
 --
 
-INSERT INTO `parcel_reports` (`id`, `customer_ID`, `pickup_address`, `delivery_address`, `package_type`, `contact_no`, `state_address`, `note`, `parcel_ID`) VALUES
-(1, 8, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 0),
-(2, 11, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 0),
-(3, 8, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 0),
-(4, 11, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 2),
-(5, 8, 'ad', 'asd', 'dfasd', 1234, '3123', '43we', 5);
+INSERT INTO `parcel_reports` (`id`, `customer_ID`, `pickup_address`, `delivery_address`, `package_type`, `contact_no`, `state_address`, `note`, `parcel_ID`, `courier_ID`) VALUES
+(1, 1, 'Katunayake', 'Negombo', 'Parcel', 1122541126, 'Colombo', 'Nothing special', 5, 0),
+(2, 1, 'Pickup', 'Delivery', 'Beverage', 73532121, 'State', 'Nothing Special', 1, 0),
+(3, 1, 'pp', 'dd', 'ty', 34342, 'ffdsfsf', 'ggfcnfgnjfgn', 6, 0),
+(4, 1, 'pp', 'dsfds', 'sdfds', 6756, 'fsfs', 'sfsdg', 7, 0),
+(5, 1, 'll', 'dd', 'ftrt', 564, 'gdgdrgdtr', 'sfsdfser', 8, 4);
 
 -- --------------------------------------------------------
 
@@ -271,9 +174,11 @@ CREATE TABLE `parcel_status` (
 --
 
 INSERT INTO `parcel_status` (`id`, `courier_id`, `customer_id`, `status`, `Vehicle_ID`, `parcel_ID`) VALUES
-(4, 1, 11, 'Pickedup', 2, 2),
-(5, 1, 8, 'Pickedup', 2, 6),
-(6, 1, 8, 'Pickedup', 2, 5);
+(2, 4, 1, 'Delivered', 45, 5),
+(3, 4, 1, 'Pickedup', 4, 1),
+(4, 4, 1, 'Pickedup', 4, 6),
+(5, 4, 1, 'Delivered', 4, 7),
+(6, 4, 1, 'Pickedup', 4, 8);
 
 -- --------------------------------------------------------
 
@@ -322,22 +227,10 @@ ALTER TABLE `customer`
   ADD UNIQUE KEY `username_UNIQUE` (`username`);
 
 --
--- Indexes for table `employee_data`
---
-ALTER TABLE `employee_data`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `location`
 --
 ALTER TABLE `location`
-  ADD PRIMARY KEY (`parcel_ID`);
-
---
--- Indexes for table `login`
---
-ALTER TABLE `login`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`vehicle_ID`);
 
 --
 -- Indexes for table `parcel`
@@ -383,27 +276,17 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `courier`
 --
 ALTER TABLE `courier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `employee_data`
---
-ALTER TABLE `employee_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
---
--- AUTO_INCREMENT for table `login`
---
-ALTER TABLE `login`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `parcel`
 --
 ALTER TABLE `parcel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `parcel_reports`
 --

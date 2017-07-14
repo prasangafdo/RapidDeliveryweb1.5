@@ -13,17 +13,11 @@ $sql = "SELECT `id` FROM `customer` WHERE `username` = '$name'";
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
-    // output data of each row
     while($row = $result->fetch_assoc()) {
-		
 		$realID = $row["id"];
-        echo  $realID ;
-
-		
     }
-
     $insert = "INSERT INTO parcel (customer_id, pickup_address, delivery_address, package_type, contact_no, state_address, note) 
-VALUES ('4', '234', '234', '234', '54', '324', '12312')";
+VALUES ('$realID', '$pickup_address', '$delivery_address', '$package_type', '$contact_no', '$state_address', '$note')";
 
 	mysqli_query($con, $insert);
     echo "New record created successfully";

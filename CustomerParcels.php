@@ -22,9 +22,8 @@
 require 'connect.php';
 $parcel_ID = $_POST['parcel_ID'];
 
-/////////////
 $sql1 = "SELECT status FROM
-parcel_status where parcel_ID = '$parcel_ID'";
+parcel_status where parcel_ID = '$parcel_ID'";//Check whether the parcel is delivered.
 
 if (mysqli_query($con, $sql1)) {
     
@@ -34,8 +33,9 @@ $x=1;
 while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
 
 extract($row);
+echo $status;
 
-if($status = 'Pickedup'){
+if($status == "Pickedup"){
 
 $sql2 = "SELECT Vehicle_ID FROM
 parcel_status where parcel_ID = '$parcel_ID'";
@@ -49,7 +49,7 @@ while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
 
 extract($row);
 
-$Vehicle_ID ;
+echo $Vehicle_ID ;
 
 //////////
 /////////
@@ -71,17 +71,10 @@ extract($row);
 echo $Longitude .'<br/>';
 
 echo $Latitude ;
-
-echo '';
-}
+        }
 $x=0;
-
-}
-
-
-}
-/////////
-
+    }
+  }
 }
 $x=0;
 

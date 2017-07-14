@@ -64,8 +64,8 @@ if ($result->num_rows > 0) {
 		$state_address = $row["state_address"];
 		$note = $row["note"];
 		
-        $sql = "INSERT INTO parcel_reports (customer_ID, pickup_address, delivery_address, package_type, contact_no, state_address, note, parcel_ID) 
-		VALUES ('$CID', '$pickup_address', '$delivery_address', '$package_type', '$contact_no', '$state_address', '$note', '$PID')";
+        $sql = "INSERT INTO parcel_reports (customer_ID, pickup_address, delivery_address, package_type, contact_no, state_address, note, parcel_ID, courier_ID) 
+		VALUES ('$CID', '$pickup_address', '$delivery_address', '$package_type', '$contact_no', '$state_address', '$note', '$PID', '$UID')";
 		//Inserting data to Parcel_reports table
 		
 		if (mysqli_query($con, $sql)) {

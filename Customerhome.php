@@ -164,39 +164,45 @@ Additionally, other than giving features to the employees, Rapid Delivery has be
              <input type="text" name="parcel_ID" placeholder="Parcel ID">
              <input type="submit">
              </form>
+             <form action="DeleteParcels.php" method="post">
+             <input type="text" name="parcel_ID" placeholder="Parcel ID">
+             <input type="submit" value="Received">
+             </form>
              
-              <?php
-			 
-			  //include('customerSession.php');
-			  require 'connect.php';
-			 $sql = "SELECT id from customer where username = '$login_session'";
-//0 is for no parcels
+            
+<?php
+	
+require 'connect.php';
+$sql = "SELECT id from customer where username = '$login_session'";
 if (mysqli_query($con, $sql)) {
     
 $results = mysqli_query($con, $sql) or die(mysql_error());
-echo "<table border=\"2\">";
-$x=1;
-echo "<tr>";
 while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
-if ($x <= 1)
-{
-$x = $x + 1;
+
 extract($row);
-echo '<br/>';
-echo $id .'<br/>';
 
-}
-$x=0;
-echo "</tr><tr>";
-
-}
-echo "</table>";
-
+$id;//Getting  the customer_ID	
+	}
 }
 
-$sql = "SELECT parcel_ID, pickup_address, delivery_address, package_type, contact_no FROM
-parcel_reports where customer_id like '$id'";
-//0 is for no parcels
+$sql1 = "SELECT status from parcel_status where customer_id = '$id'";
+if (mysqli_query($con, $sql1)) {
+    
+$results = mysqli_query($con, $sql1) or die(mysql_error());
+while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+
+extract($row);
+$status;//Getting  parcel status
+	}
+}
+
+
+
+/*$sql = "SELECT parcel_ID, pickup_address, delivery_address, package_type, contact_no FROM
+parcel_reports where customer_id like '$id'";*/
+
+$sql = "SELECT parcel_reports.parcel_ID, parcel_reports.pickup_address, parcel_reports.delivery_address,parcel_reports.package_type, parcel_reports.contact_no, parcel_status.status FROM parcel_reports INNER JOIN parcel_status on parcel_reports.parcel_ID = parcel_status.parcel_ID WHERE parcel_status.status = 'Pickedup' AND parcel_reports.customer_id = '1'";
+
 if (mysqli_query($con, $sql)) {
     
 $results = mysqli_query($con, $sql) or die(mysql_error());
@@ -229,6 +235,9 @@ echo "</tr><tr>";
 echo "</table>";
 
 }
+
+
+
 ?>
              
         <!--       

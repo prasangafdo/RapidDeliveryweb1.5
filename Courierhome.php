@@ -117,6 +117,7 @@
                          <form  method="post" action="courierParcels.php" >
  						 <input type="text" name="address" id="address" placeholder="Pickup location">
                         <input type="submit" Value="Search" id="SearchCarButton" class="submitBtn" onclick="showIFrame()">
+                        </form>
                         </p>
              <!--iframe is not working. Need to check-->
                        
@@ -143,6 +144,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Exchange couriers</h1>
+                    <p align="justify"> 
+                      
+                         <form  method="post" action="shiftParcel.php" >
+ 						 <input type="text" name="vehicleID" id="vehicleID" placeholder="Vehicle ID">
+                        <input type="submit" Value="Shift Package" id="SearchCarButton" class="submitBtn"><!--Need to remove onclocks-->
+                        </form>
+                        </p>
                 </div>
             </div>
         </div>
