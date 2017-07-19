@@ -36,14 +36,24 @@ $pss = $_POST['pss'];
 $email = $_POST['email'];
 $address = $_POST['address'];
 $telephone = $_POST['telephone'];
-$sql = "INSERT INTO customer (username, password, email, address, tel)
-VALUES ('$uname', '$pss', '$email', '$address', '$telephone')";
+$rName = $_POST['receiverName'];
+$rPss = $_POST['receiverPassword'];
+
+$sql = "INSERT INTO customer (username, password, email, address, tel, Receiver_Name, Receiver_password)
+VALUES ('$uname', '$pss', '$email', '$address', '$telephone', '$rName', '$rPss')";
 
 if (mysqli_query($con, $sql)) {
     echo "New record created successfully";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($con);
-}  
+} 
+$sql1 = "INSERT INTO receiver (username, password)
+VALUES ('$rName', '$rPss')";
+ if (mysqli_query($con, $sql1)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($con);
+} 
 ?>
 </body>
 </html>

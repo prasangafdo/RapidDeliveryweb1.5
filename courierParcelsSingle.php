@@ -1,9 +1,32 @@
-<?php
-require 'connect.php';
-include('courierSession.php');
-$PID = $_POST['parcel_ID'];
-//$addr = $_POST['addr'];
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Rapid Delivery</title>
+  <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
 
+
+  
+  
+      <link rel="stylesheet" href="css/style4.css">
+
+  
+</head>
+
+<body>
+  <section class="container">
+    <h1>Parcel Collected</h1>
+    <form action="courierHome.php">
+    <button data-hover="Go to menu"><div>OK</div></button>
+    </form>
+
+</section>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+ <?php
+require 'connect.php';
+//include('courierSession.php');
+$PID = $_POST['parcel_ID'];
 
 
 $sql1 = "SELECT `id` FROM `courier` WHERE `username` = '$login_session'";//Getting courier ID
@@ -14,7 +37,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		
 		$UID = $row["id"];
-        echo  "Courier_ID " .$UID ;
+      //  echo  "Courier_ID " .$UID ;
       
 }
 
@@ -28,8 +51,8 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		
 		$CID = $row["customer_id"];
-		echo  "<br/>";
-        echo  "Customer_ID " .$CID ;
+		//echo  "<br/>";
+       // echo  "Customer_ID " .$CID ;
      }
 }
 
@@ -41,13 +64,13 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		
 		$VID = $row["vehicle_ID"];
-		echo  "<br/>";
-        echo  "Vehicle_ID " .$VID ;   
+		//echo  "<br/>";
+        //echo  "Vehicle_ID " .$VID ;   
 	}
 }
-echo  "<br/>";
-echo 'Parcel_ID '.$PID;
-echo  "<br/>";
+//echo  "<br/>";
+//echo 'Parcel_ID '.$PID;
+//echo  "<br/>";
 
 $sql7 = "SELECT * FROM `parcel` WHERE `ID` = '$PID'";
 $result = $con->query($sql7);
@@ -69,7 +92,7 @@ if ($result->num_rows > 0) {
 		//Inserting data to Parcel_reports table
 		
 		if (mysqli_query($con, $sql)) {
-			echo "Inserted into parcel_reports successfully";
+		//	echo "Inserted into parcel_reports successfully";
 		} else {
 			echo "Error: " . $sql . "<br>" . mysqli_error($con);
 		}
@@ -82,7 +105,7 @@ VALUES ('$UID', '$CID', 'Pickedup', '$VID', '$PID')";
 //Inserting data to Parcel_Status table
 
 if (mysqli_query($con, $sql)) {
-    echo "New record created successfully";
+   // echo "New record created successfully";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($con);
 }
@@ -92,16 +115,10 @@ $sql = "delete from parcel where id = $PID";
 //Deleting data from parcel
 
 if (mysqli_query($con, $sql)) {
-    echo "Value deleted successfully";
+   // echo "Value deleted successfully";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($con);
 }   
-?>
-
-
-<html>
-<body>
-
-
+?> 
 </body>
 </html>

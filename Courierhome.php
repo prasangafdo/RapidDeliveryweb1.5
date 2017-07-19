@@ -33,11 +33,11 @@
 
     <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="css/style2.css" rel="stylesheet">
+
 
 </head>
 
-
-<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
@@ -65,7 +65,7 @@
                         <a class="page-scroll" href="#Find-couriers">Find couriers</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#Exchange-couriers">Exchange couriers</a>
+                        <a class="page-scroll" href="#Switch-Vehicle">Switch Vehicle</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#View-completed-jobs">View completed jobs</a>
@@ -92,16 +92,21 @@
     </nav>
 
     <!-- Intro Section -->
-    <section id="intro" class="intro-section">
+    <section id="courier_intro-section" class="courier_intro-section">
         <div class="container">
             <div class="row">
                 <div class="welcomePane">
                     <h1>Welcome to Rapid Delivery</h1>
-                    <div class="welcomePane-img">
-                    	<p>&nbsp;</p>
-                   <!-- <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a> -->
-                </div>
-                
+                 <!--   <div class="welcomePane-img">
+                    	
+                </div>-->
+                <img class="img-responsive" src="images/courier-services-2.jpg">
+                <h1>About Rapid Deliery </h1>
+                   	<p align="justify"> 
+                    Rapid Delivery is a 24/7 courier service, located in Colombo, Sri Lanka. Our company was founded in mid-2017 by a final year software engineering student of the University of the west of England with the aim of providing a better courier service that is focused on delivery transparency with the support of GPS. 
+Packages are collected from any Sri Lankan address and taken to any final destination requested by the client. Although “Rapid Delivery” originally only delivers parcels to Sri Lankan addresses, they now deliver parcels to any global location requested by incorporated clients.  
+Rapid Delivery us, utilize Intelligent Dispatch, which is an artificial intelligence and fleet management system to allocate a booking to the most appropriate vehicle for transport mode (including bicycles, motorbikes and vans of varying sizes).
+</p>
             </div>
         </div>        
     </section>
@@ -114,24 +119,12 @@
                     <h1>Find couriers</h1>
                     	<p align="justify"> 
                       
-                         <form  method="post" action="courierParcels.php" >
- 						 <input type="text" name="address" id="address" placeholder="Pickup location">
-                        <input type="submit" Value="Search" id="SearchCarButton" class="submitBtn" onclick="showIFrame()">
+                         <form  method="post" action="courierparcels.php" >
+ 						 <input type="text" name="pickupaddress" id="pickupaddress" placeholder="Pickup location">
+                         <input type="text" name="stateaddress" id="stateaddress" placeholder="Delivery location">
+                        <input type="submit" Value="Search" id="" class="submitBtn">
                         </form>
                         </p>
-             <!--iframe is not working. Need to check-->
-                       
-<iframe id="myframe" name="carsearch" width="535" height="625" scrolling="no"   frameborder="0"></iframe>
-
-
-                        
-                        <script type="text/javascript">  
-						//Shows the iframe
-						function showIFrame() {  
-						 var iframe = document.getElementById("myiframe");  
-						 iframe.style.display="block";  
-						}  
-						</script>
                      
                 </div>
             </div>
@@ -139,16 +132,16 @@
     </section>
 
 
-    <section id="Exchange-couriers" class="services-section">
+    <section id="Switch-Vehicle" class="exchange-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Exchange couriers</h1>
+                    <h1>Switch Vehicle</h1>
                     <p align="justify"> 
                       
-                         <form  method="post" action="shiftParcel.php" >
+                         <form  method="post" action="shiftVehicle.php" >
  						 <input type="text" name="vehicleID" id="vehicleID" placeholder="Vehicle ID">
-                        <input type="submit" Value="Shift Package" id="SearchCarButton" class="submitBtn"><!--Need to remove onclocks-->
+                        <input type="submit" Value="Shift Package" id="" class="submitBtn"><!--Need to remove onclocks-->
                         </form>
                         </p>
                 </div>
@@ -157,11 +150,75 @@
     </section>
 
 
-    <section id="View-completed-jobs" class="contact-section">
+    <section id="View-completed-jobs" class="completedJobs-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>View completed jobs</h1>
+                    <h1>View Your jobs</h1>
+                    
+                    <?php
+					require 'connect.php';
+					//include('courierSession.php');
+					$sql = "SELECT id FROM courier WHERE username = '$login_session'";
+					
+					if (mysqli_query($con, $sql)) {
+						if (mysqli_query($con, $sql)) {
+    
+$results = mysqli_query($con, $sql) or die(mysql_error());
+
+$x=1;
+
+while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+
+extract($row);
+$id;
+
+$sql = "SELECT * FROM
+parcel_status where courier_id = '$id'";
+//0 is for no parcels
+if (mysqli_query($con, $sql)) {
+    
+$results = mysqli_query($con, $sql) or die(mysql_error());
+
+while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
+{
+
+extract($row);
+echo  "<table id=\"keywords\" cellspacing=\"0\" cellpadding=\"0\">
+<thead>
+<br/><br/>
+
+<tr>
+<th><span>ID</span></th>
+        <th><span>Courier ID</span></th>
+        <th><span>Customer ID</span></th>
+        <th><span>Status</span></th>
+        <th><span>Vehicle ID</span></th>
+        <th><span>Parcel ID</span></th>
+      </tr>
+    </thead>
+
+
+	 <tbody>
+      <tr>
+        <td class=\"lalign\">".$id."</td>
+	 
+        <td>".$courier_id."</td>
+        <td>".$customer_id."</td>
+        <td>".$status."</td>
+        <td>".$Vehicle_ID."</td>
+		<td>".$parcel_ID."</td>
+      </tr>
+	   </tr>
+    </tbody>
+  </table>";
+		}
+	}
+}
+}
+}
+	}  
+					?>
                 </div>
             </div>
         </div>

@@ -23,6 +23,8 @@
                 <input id="email" name="email" placeholder="email" type="text"><br/>
 				<input id="address" name="address" placeholder="address" type="text"><br/>
                 <input id="telephone" name="telephone" placeholder="telephone" type="text"><br/>
+                <input id="receiverName" name="receiverName" placeholder="Receiver's Username" type="text"><br/>
+                <input id="receiverPassword" name="receiverPassword" placeholder="Receiver's Password" type="password"><br/>
 				<input name="submit" type="submit" value="Register">
                                
 				</form>      

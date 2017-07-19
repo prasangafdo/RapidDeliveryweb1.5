@@ -3,7 +3,6 @@ require 'connect.php';
 $Vehicle_ID = $_POST['vehicleID'];
 
 include('courierSession.php');
-//$login_session;
 
 $sql1 = "SELECT id FROM
 courier where username = '$login_session'";
@@ -17,10 +16,7 @@ while ($row = mysqli_fetch_array($results, MYSQLI_ASSOC)) {
 
 extract($row);
 	}
-
 }
-
-
 
 $sql3 = "UPDATE parcel_status SET Vehicle_ID = '$Vehicle_ID'
 where courier_id = '$id'";
@@ -28,6 +24,5 @@ where courier_id = '$id'";
 if (mysqli_query($con, $sql3)) {
    echo "Package Transfered";
    }
-
-
+   
 ?>

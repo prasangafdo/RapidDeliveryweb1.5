@@ -29,7 +29,11 @@
         <input name="courier" type="submit" value="Courier">
         </form>
         <form action="customer.php" method="post">
-        <input name="customer" type="submit" value="Customer">
+        <input name="customer" type="submit" value="Customer/Sender">
+        </form>
+        </form>
+        <form action="receiver.php" method="post">
+        <input name="receiver" type="submit" value="Receiver">
         </form>
                 <br/>
 
